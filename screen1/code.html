@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+
+<html lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" name="viewport"/>
+<title>계좌 개설 - 본인 확인</title>
+<!-- Tailwind CSS v3 CDN with Plugins -->
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<style data-purpose="custom-typography">@import url('https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css'); body { font-family: 'Pretendard Variable', Pretendard, -apple-system, BlinkMacSystemFont, system-ui, Roboto, 'Helvetica Neue', 'Segoe UI', 'Apple SD Gothic Neo', 'Noto Sans KR', 'Malgun Gothic', 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', sans-serif; -webkit-tap-highlight-color: transparent; }</style>
+<style data-purpose="layout-ui-tweaks">
+    /* Custom scroll behavior and button transitions */
+    .btn-transition {
+      transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+    .btn-transition:active {
+      transform: scale(0.98);
+      filter: brightness(90%);
+    }
+    /* Fixed bottom button container shadow */
+    .sticky-bottom-nav {
+      box-shadow: 0 -4px 12px rgba(0, 0, 0, 0.05);
+    }
+  </style>
+<style>
+  :root {
+    --brand-primary: #00D471;
+  }
+  .bg-brand { background-color: var(--brand-primary) !important; }
+  .text-brand { color: var(--brand-primary) !important; }
+  .border-brand { border-color: var(--brand-primary) !important; }
+  .focus\:ring-brand:focus { --tw-ring-color: var(--brand-primary) !important; }
+  .bg-brand-light { background-color: rgba(0, 212, 113, 0.1) !important; }
+</style></head>
+<body class="text-gray-900 flex flex-col min-h-screen bg-white">
+<!-- BEGIN: Header -->
+<header class="bg-white border-b border-gray-200 sticky top-0 z-50">
+<div class="px-4 h-14 flex items-center justify-between">
+<a aria-label="Go back" class="p-2 -ml-2 text-gray-600" href="../nftf-element.html">
+<svg class="h-6 w-6" fill="none" stroke="currentColor" viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+<path d="M15 19l-7-7 7-7" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path>
+</svg>
+</a>
+<h1 class="text-lg font-semibold text-slate-800">계좌 개설</h1>
+<button aria-label="Close" class="p-2 -mr-2 text-gray-600">
+<svg class="h-6 w-6" fill="none" stroke="currentColor" viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+<path d="M6 18L18 6M6 6l12 12" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path>
+</svg>
+</a>
+</div>
+<!-- BEGIN: Progress Bar -->
+<div class="w-full h-1.5 bg-gray-100 flex">
+<div class="h-full w-1/3 transition-all duration-500 ease-in-out bg-brand"></div>
+<div class="h-full bg-gray-200 flex-grow"></div>
+</div>
+<!-- END: Progress Bar -->
+</header>
+<!-- END: Header -->
+<!-- BEGIN: Main Content -->
+<main class="flex-grow px-5 py-8 pb-32 bg-white">
+<!-- Step 1: Identity Info -->
+<section class="space-y-8" id="step-1-identity">
+<div data-purpose="page-intro">
+<h2 class="text-2xl font-bold text-slate-900 leading-tight">본인 정보를 입력해주세요</h2>
+<p class="text-gray-500 mt-2">안전한 계좌 개설을 위해 실명 확인이 필요합니다.</p>
+</div>
+<div class="space-y-6">
+<div>
+<label class="block text-sm font-medium text-gray-700 mb-2" for="full-name">이름</label>
+<input class="w-full h-14 px-4 bg-gray-50 border-none rounded-xl focus:ring-2 focus:ring-brand" id="full-name" placeholder="성함을 입력해주세요" type="text"/>
+</div>
+<div>
+<label class="block text-sm font-medium text-gray-700 mb-2" for="ssn">주민등록번호</label>
+<div class="flex items-center space-x-2">
+<input class="w-full h-14 px-4 bg-gray-50 border-none rounded-xl focus:ring-2 text-center tracking-widest focus:ring-brand" id="ssn-front" maxlength="6" placeholder="앞 6자리" type="number"/>
+<span class="text-gray-400">-</span>
+<div class="relative w-full flex items-center">
+<input class="w-12 h-14 px-4 bg-gray-50 border-none rounded-xl focus:ring-2 text-center focus:ring-brand" id="ssn-back" maxlength="1" placeholder="●" type="password"/>
+<span class="ml-2 text-gray-400 font-medium tracking-[0.5em]">●●●●●●</span>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- Step 2: Phone Verification (Initially Hidden) -->
+<section class="hidden space-y-8" id="step-2-phone">
+<div data-purpose="page-intro">
+<h2 class="text-2xl font-bold text-slate-900 leading-tight">휴대폰 번호를 인증해주세요</h2>
+<p class="text-gray-500 mt-2">본인 명의의 휴대폰으로 인증을 진행합니다.</p>
+</div>
+<div class="space-y-6">
+<div>
+<label class="block text-sm font-medium text-gray-700 mb-2">통신사 선택</label>
+<button class="w-full h-14 px-4 bg-gray-50 border-none rounded-xl focus:ring-2 focus:ring-brand text-gray-700 flex items-center justify-between" id="carrier-open" type="button">
+  <span id="carrier-value" class="text-gray-400">선택해주세요</span>
+  <svg class="h-5 w-5 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+    <path d="M19 9l-7 7-7-7" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path>
+  </svg>
+</a>
+</div>
+<div class="hidden transition-all duration-300 opacity-0 transform translate-y-2" id="phone-input-group">
+<label class="block text-sm font-medium text-gray-700 mb-2" for="phone-number">휴대폰 번호</label>
+<input class="w-full h-14 px-4 bg-gray-50 border-none rounded-xl focus:ring-2 mb-4 focus:ring-brand" id="phone-number" placeholder="'-' 없이 숫자만 입력" type="tel"/>
+<button class="w-full h-14 font-bold rounded-xl transition-all active:scale-95 bg-brand-light text-brand" id="send-code-btn" type="button">인증번호 전송</a>
+</div><div class="hidden mt-8 transition-all duration-300" id="verification-code-group">
+<label class="block text-sm font-medium text-gray-700 mb-2" for="verification-code">인증번호 입력</label>
+<div class="relative">
+<input class="w-full h-14 px-4 bg-gray-50 border-none rounded-xl focus:ring-2 pr-20 focus:ring-brand" id="verification-code" maxlength="6" placeholder="6자리 숫자 입력" type="number"/>
+<span class="absolute right-4 top-1/2 -translate-y-1/2 text-red-500 font-medium" id="timer">03:00</span>
+</div>
+<p class="mt-3 text-xs text-gray-400">인증번호가 오지 않나요? <button class="underline text-brand">재전송</a></p>
+</div>
+</div>
+</section>
+</main>
+<!-- END: Main Content -->
+<!-- BEGIN: Sticky Bottom Button -->
+<footer class="fixed bottom-0 left-0 right-0 bg-white p-4 sticky-bottom-nav z-50">
+<button class="w-full h-14 text-white text-lg font-bold rounded-xl shadow-lg btn-transition bg-brand" id="next-button">다음</a>
+</footer>
+<!-- END: Sticky Bottom Button -->
+
+<!-- Carrier Bottom Sheet -->
+<div class="fixed inset-0 z-50 bg-black/40 hidden" id="carrier-sheet">
+<div class="absolute inset-x-0 bottom-0 bg-white rounded-t-3xl p-5">
+  <div class="w-10 h-1.5 rounded-full bg-gray-300 mx-auto mb-4"></div>
+  <h3 class="text-lg font-semibold text-slate-900">통신사 선택</h3>
+  <div class="mt-3 h-px bg-gray-200"></div>
+  <div class="mt-4 space-y-3 text-sm text-gray-700">
+    <div class="grid grid-cols-3 gap-2">
+      <button class="carrier-item h-12 rounded-xl border border-gray-200 text-gray-700 font-medium" data-carrier="SKT" type="button">SKT</a>
+      <button class="carrier-item h-12 rounded-xl border border-gray-200 text-gray-700 font-medium" data-carrier="KT" type="button">KT</a>
+      <button class="carrier-item h-12 rounded-xl border border-gray-200 text-gray-700 font-medium" data-carrier="LG U+" type="button">LG U+</a>
+    </div>
+    <div class="pt-2 text-sm font-semibold text-slate-700">알뜰폰 (MVNO)</div>
+    <div class="grid grid-cols-3 gap-2">
+      <button class="carrier-item h-12 rounded-xl border border-gray-200 text-gray-700 font-medium" data-carrier="알뜰폰 SKT" type="button">알뜰폰 SKT</a>
+      <button class="carrier-item h-12 rounded-xl border border-gray-200 text-gray-700 font-medium" data-carrier="알뜰폰 KT" type="button">알뜰폰 KT</a>
+      <button class="carrier-item h-12 rounded-xl border border-gray-200 text-gray-700 font-medium" data-carrier="알뜰폰 LGU+" type="button">알뜰폰 LGU+</a>
+    </div>
+  </div>
+  <div class="mt-5 grid gap-2">
+    <button class="w-full h-12 rounded-xl border border-gray-200 text-gray-600 font-semibold" id="carrier-close">닫기</a>
+  </div>
+</div>
+</div>
+<script data-purpose="form-interactivity">const step1 = document.getElementById('step-1-identity');
+const step2 = document.getElementById('step-2-phone');
+const nextButton = document.getElementById('next-button');
+const carrierOpen = document.getElementById('carrier-open');
+const carrierValue = document.getElementById('carrier-value');
+const carrierSheet = document.getElementById('carrier-sheet');
+const carrierClose = document.getElementById('carrier-close');
+const carrierItems = document.querySelectorAll('.carrier-item');
+const phoneInputGroup = document.getElementById('phone-input-group');
+const phoneInput = document.getElementById('phone-number');
+const sendCodeBtn = document.getElementById('send-code-btn');
+const verificationGroup = document.getElementById('verification-code-group');
+const verificationInput = document.getElementById('verification-code');
+const timerDisplay = document.getElementById('timer');
+const progressBar = document.querySelector('.bg-brand');
+
+let currentStep = 1;
+let timerInterval;
+
+function startTimer() {
+  clearInterval(timerInterval);
+  let timeLeft = 180; // 3 minutes
+  
+  const updateDisplay = () => {
+    const minutes = Math.floor(timeLeft / 60);
+    const seconds = timeLeft % 60;
+    timerDisplay.textContent = `${String(minutes).padStart(2, '0')}:${String(seconds).padStart(2, '0')}`;
+    if (timeLeft <= 0) clearInterval(timerInterval);
+    timeLeft--;
+  };
+  
+  updateDisplay();
+  timerInterval = setInterval(updateDisplay, 1000);
+}
+
+nextButton.addEventListener('click', () => {
+  if (currentStep === 1) {
+    step1.classList.add('hidden');
+    step2.classList.remove('hidden');
+    progressBar.style.width = '66%';
+    currentStep = 2;
+    nextButton.innerText = '다음';
+    nextButton.classList.add('opacity-50');
+    nextButton.disabled = true;
+    carrierSheet.classList.remove('hidden');
+  } else if (currentStep === 2) {
+    alert('본인 확인 신청이 접수되었습니다.');
+  }
+});
+
+carrierOpen.addEventListener('click', () => {
+  carrierSheet.classList.remove('hidden');
+});
+
+carrierClose.addEventListener('click', () => {
+  carrierSheet.classList.add('hidden');
+});
+
+carrierSheet.addEventListener('click', (e) => {
+  if (e.target === carrierSheet) {
+    carrierSheet.classList.add('hidden');
+  }
+});
+
+carrierItems.forEach((item) => {
+  item.addEventListener('click', () => {
+    carrierItems.forEach((b) => b.classList.remove('border-[#00D471]', 'bg-brand-light', 'text-brand'));
+    item.classList.add('border-[#00D471]', 'bg-brand-light', 'text-brand');
+    carrierValue.textContent = item.dataset.carrier;
+    carrierValue.classList.remove('text-gray-400');
+    carrierValue.classList.add('text-gray-700');
+    carrierSheet.classList.add('hidden');
+    phoneInputGroup.classList.remove('hidden');
+    setTimeout(() => {
+      phoneInputGroup.classList.remove('opacity-0', 'translate-y-2');
+      phoneInputGroup.classList.add('opacity-100', 'translate-y-0');
+      phoneInput.focus();
+    }, 50);
+  });
+});
+
+sendCodeBtn.addEventListener('click', () => {
+  verificationGroup.classList.remove('hidden');
+  startTimer();
+  verificationInput.focus();
+  nextButton.classList.remove('opacity-50');
+  nextButton.disabled = false;
+});</script>
+</body></html>

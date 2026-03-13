@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+  <title>Account Opening UI Elements</title>
+  <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+  <style data-purpose="custom-typography">@import url('https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css'); body { font-family: 'Pretendard Variable', Pretendard, -apple-system, BlinkMacSystemFont, system-ui, Roboto, 'Helvetica Neue', 'Segoe UI', 'Apple SD Gothic Neo', 'Noto Sans KR', 'Malgun Gothic', 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', sans-serif; -webkit-tap-highlight-color: transparent; }</style>
+  <style data-purpose="layout-ui-tweaks">
+    .btn-transition { transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1); }
+    .btn-transition:active { transform: scale(0.98); filter: brightness(90%); }
+    .sticky-bottom-nav { box-shadow: 0 -4px 12px rgba(0, 0, 0, 0.05); }
+  </style>
+  <style>
+    :root { --brand-primary: #00D471; }
+    .bg-brand { background-color: var(--brand-primary) !important; }
+    .text-brand { color: var(--brand-primary) !important; }
+    .border-brand { border-color: var(--brand-primary) !important; }
+    .focus\:ring-brand:focus { --tw-ring-color: var(--brand-primary) !important; }
+    .bg-brand-light { background-color: rgba(0, 212, 113, 0.1) !important; }
+  </style>
+</head>
+<body class="text-gray-900 bg-white">
+  <header class="bg-white border-b border-gray-200 sticky top-0 z-50">
+    <div class="px-4 h-14 flex items-center justify-between">
+      <button aria-label="Go back" class="p-2 -ml-2 text-gray-600">
+        <svg class="h-6 w-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+          <path d="M15 19l-7-7 7-7" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path>
+        </svg>
+      </button>
+      <h1 class="text-lg font-semibold text-slate-800">공통 UI 컴포넌트</h1>
+      <button aria-label="Close" class="p-2 -mr-2 text-gray-600">
+        <svg class="h-6 w-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+          <path d="M6 18L18 6M6 6l12 12" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path>
+        </svg>
+      </button>
+    </div>
+    <div class="w-full h-1.5 bg-gray-100 flex">
+      <div class="h-full w-2/5 transition-all duration-500 ease-in-out bg-brand"></div>
+      <div class="h-full bg-gray-200 flex-grow"></div>
+    </div>
+  </header>
+
+  <main class="px-5 py-6 pb-32 space-y-8">
+    <section class="space-y-3">
+      <div class="text-xs font-semibold text-gray-500">Buttons</div>
+      <div class="grid gap-3">
+        <button class="w-full h-14 text-white text-lg font-bold rounded-xl shadow-lg btn-transition bg-brand">기본 버튼</button>
+        <div class="grid grid-cols-2 gap-3">
+          <button class="h-12 rounded-xl border border-gray-200 text-gray-600 font-semibold">보조 버튼</button>
+          <button class="h-12 rounded-xl bg-brand-light text-brand font-semibold">서브 버튼</button>
+        </div>
+      </div>
+    </section>
+
+    <section class="space-y-3">
+      <div class="text-xs font-semibold text-gray-500">Inputs</div>
+      <div class="grid gap-3">
+        <div>
+          <label class="block text-sm font-medium text-gray-700 mb-2">이름</label>
+          <input class="w-full h-14 px-4 bg-gray-50 border-none rounded-xl focus:ring-2 focus:ring-brand" placeholder="성함을 입력해주세요" type="text" />
+        </div>
+        <div>
+          <label class="block text-sm font-medium text-gray-700 mb-2">주민등록번호</label>
+          <div class="flex items-center space-x-2">
+            <input class="w-full h-14 px-4 bg-gray-50 border-none rounded-xl focus:ring-2 text-center tracking-widest focus:ring-brand" maxlength="6" placeholder="앞 6자리" type="number"/>
+            <span class="text-gray-400">-</span>
+            <div class="relative w-full flex items-center">
+              <input class="w-12 h-14 px-4 bg-gray-50 border-none rounded-xl focus:ring-2 text-center focus:ring-brand" maxlength="1" placeholder="●" type="password"/>
+              <span class="ml-2 text-gray-400 font-medium tracking-[0.5em]">●●●●●●</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="space-y-3">
+      <div class="text-xs font-semibold text-gray-500">Checkbox</div>
+      <label class="flex items-start gap-3 p-4 rounded-2xl border border-gray-200 bg-white">
+        <input type="checkbox" class="mt-1 h-5 w-5 border-gray-300 text-brand focus:ring-brand bg-transparent" checked />
+        <div>
+          <div class="font-semibold text-slate-900">필수 약관 전체 동의</div>
+          <div class="text-xs text-gray-500 mt-1">서비스 이용, 개인(신용)정보 처리</div>
+        </div>
+      </label>
+    </section>
+
+    <section class="space-y-3">
+      <div class="text-xs font-semibold text-gray-500">Radio</div>
+      <div class="flex items-center gap-4 text-sm">
+        <label class="flex items-center gap-2">
+          <input type="radio" name="r1" class="h-5 w-5 border-gray-300 text-brand focus:ring-brand bg-transparent" checked />
+          동의
+        </label>
+        <label class="flex items-center gap-2">
+          <input type="radio" name="r1" class="h-5 w-5 border-gray-300 text-brand focus:ring-brand bg-transparent" />
+          미동의
+        </label>
+      </div>
+    </section>
+
+    <section class="space-y-3">
+      <div class="text-xs font-semibold text-gray-500">Select</div>
+      <button class="w-full h-14 px-4 bg-gray-50 border-none rounded-xl focus:ring-2 focus:ring-brand text-gray-700 flex items-center justify-between">
+        <span class="text-gray-400">선택해주세요</span>
+        <svg class="h-5 w-5 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+          <path d="M19 9l-7 7-7-7" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path>
+        </svg>
+      </button>
+    </section>
+
+    <section class="space-y-3">
+      <div class="text-xs font-semibold text-gray-500">Bottom Sheet</div>
+      <div class="p-4 rounded-2xl border border-gray-200 bg-white">
+        <div class="text-sm text-gray-500">예시 바텀시트 영역</div>
+      </div>
+    </section>
+
+    <section class="space-y-3">
+      <div class="text-xs font-semibold text-gray-500">Screens Flow</div>
+      <div class="grid grid-cols-2 gap-3">
+        <a class="h-12 rounded-xl border border-gray-200 text-gray-600 font-semibold flex items-center justify-center" href="screen1/code.html">본인인증</a>
+        <a class="h-12 rounded-xl border border-gray-200 text-gray-600 font-semibold flex items-center justify-center" href="screen2/code.html">상품선택</a>
+        <a class="h-12 rounded-xl border border-gray-200 text-gray-600 font-semibold flex items-center justify-center" href="screen3/code.html">신분증 촬영</a>
+        <a class="h-12 rounded-xl border border-gray-200 text-gray-600 font-semibold flex items-center justify-center" href="screen4/code.html">상품선택</a>
+        <a class="h-12 rounded-xl border border-gray-200 text-gray-600 font-semibold flex items-center justify-center" href="screen5/code.html">약관 layer</a>
+      </div>
+    </section>
+  </main>
+
+  <footer class="fixed bottom-0 left-0 right-0 bg-white p-4 sticky-bottom-nav z-50">
+    <button class="w-full h-14 text-white text-lg font-bold rounded-xl shadow-lg btn-transition bg-brand">다음</button>
+  </footer>
+</body>
+</html>

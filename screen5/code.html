@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+  <title>계좌 개설 - 약관 동의</title>
+  <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+  <style data-purpose="custom-typography">@import url('https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css'); body { font-family: 'Pretendard Variable', Pretendard, -apple-system, BlinkMacSystemFont, system-ui, Roboto, 'Helvetica Neue', 'Segoe UI', 'Apple SD Gothic Neo', 'Noto Sans KR', 'Malgun Gothic', 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', sans-serif; -webkit-tap-highlight-color: transparent; }</style>
+  <style data-purpose="layout-ui-tweaks">
+    .btn-transition { transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1); }
+    .btn-transition:active { transform: scale(0.98); filter: brightness(90%); }
+    .sticky-bottom-nav { box-shadow: 0 -4px 12px rgba(0, 0, 0, 0.05); }
+  </style>
+  <style>
+    :root { --brand-primary: #00D471; }
+    .bg-brand { background-color: var(--brand-primary) !important; }
+    .text-brand { color: var(--brand-primary) !important; }
+    .border-brand { border-color: var(--brand-primary) !important; }
+    .focus\:ring-brand:focus { --tw-ring-color: var(--brand-primary) !important; }
+    .bg-brand-light { background-color: rgba(0, 212, 113, 0.1) !important; }
+    .sheet-overlay { opacity: 0; pointer-events: none; transition: opacity 0.25s ease; }
+    .sheet-overlay.active { opacity: 1; pointer-events: auto; }
+    .bottom-sheet-panel { transform: translateY(100%); transition: transform 0.25s ease; will-change: transform; }
+    .sheet-overlay.active .bottom-sheet-panel { transform: translateY(0); }
+  </style>
+</head>
+<body class="text-gray-900 flex flex-col min-h-screen bg-white">
+  <header class="bg-white border-b border-gray-200 sticky top-0 z-50">
+    <div class="px-4 h-14 flex items-center justify-between">
+      <a aria-label="Go back" class="p-2 -ml-2 text-gray-600" href="../nftf-element.html">
+        <svg class="h-6 w-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+          <path d="M15 19l-7-7 7-7" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path>
+        </svg>
+      </a>
+      <h1 class="text-lg font-semibold text-slate-800">계좌 개설</h1>
+      <button aria-label="Close" class="p-2 -mr-2 text-gray-600">
+        <svg class="h-6 w-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+          <path d="M6 18L18 6M6 6l12 12" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path>
+        </svg>
+      </a>
+    </div>
+    <div class="w-full h-1.5 bg-gray-100 flex">
+      <div class="h-full w-4/5 transition-all duration-500 ease-in-out bg-brand"></div>
+      <div class="h-full bg-gray-200 flex-grow"></div>
+    </div>
+  </header>
+
+  <main class="flex-grow px-5 py-6 pb-32 bg-white">
+    <section class="space-y-6">
+      <div class="divide-y divide-gray-200">
+        <div class="py-4 space-y-2">
+          <div class="font-semibold text-slate-900">1. 서비스 이용 약관</div>
+          <div class="text-xs text-gray-500 leading-relaxed">계좌 개설 및 서비스 이용에 필요한 기본 규정을 안내합니다. 본인 명의로만 신청 가능하며, 허위 정보 제공 시 서비스가 제한될 수 있습니다.</div>
+        </div>
+        <div class="py-4 space-y-2">
+          <div class="font-semibold text-slate-900">2. 개인(신용)정보 처리 동의</div>
+          <div class="text-xs text-gray-500 leading-relaxed">계좌 개설, 본인 확인, 자금세탁방지(AML) 등 법령 준수를 위해 필요한 최소한의 개인(신용)정보를 수집·이용합니다.</div>
+        </div>
+        <div class="py-4 space-y-2">
+          <div class="font-semibold text-slate-900">3. 고유식별정보 처리 동의</div>
+          <div class="text-xs text-gray-500 leading-relaxed">주민등록번호 등 고유식별정보는 본인 확인 및 관련 법령에 따라 처리되며, 목적 외 사용은 하지 않습니다.</div>
+        </div>
+        <div class="py-4 space-y-2">
+          <div class="font-semibold text-slate-900">4. 전자금융거래 이용 약관</div>
+          <div class="text-xs text-gray-500 leading-relaxed">모바일/인터넷을 통한 전자금융거래 이용 조건과 책임 범위를 안내합니다.</div>
+        </div>
+        <div class="py-4 space-y-2">
+          <div class="font-semibold text-slate-900">5. 금융사기 예방 안내</div>
+          <div class="text-xs text-gray-500 leading-relaxed">보이스피싱 및 이상 거래 예방을 위한 안내와 협조 의무를 포함합니다.</div>
+        </div>
+        <div class="py-4 space-y-2">
+          <div class="font-semibold text-slate-900">6. 투자성향 확인 및 적합성 원칙</div>
+          <div class="text-xs text-gray-500 leading-relaxed">투자성향 확인 및 적합·적정성 원칙에 따른 상품 안내 기준을 설명합니다.</div>
+        </div>
+        <div class="py-4 space-y-2">
+          <div class="font-semibold text-slate-900">7. 수수료 및 제비용 안내</div>
+          <div class="text-xs text-gray-500 leading-relaxed">계좌 이용 시 발생 가능한 수수료 및 비용에 대한 기준을 제공합니다.</div>
+        </div>
+        <div class="py-4 space-y-2">
+          <div class="font-semibold text-slate-900">8. 해외주식 거래 약관</div>
+          <div class="text-xs text-gray-500 leading-relaxed">해외시장 거래 시 적용되는 거래 규정, 환전 및 위험 고지 사항을 안내합니다.</div>
+        </div>
+        <div class="py-4 space-y-2">
+          <div class="font-semibold text-slate-900">9. 민원 및 분쟁 처리 안내</div>
+          <div class="text-xs text-gray-500 leading-relaxed">민원 접수 및 분쟁 처리 절차, 연락처 및 처리 기한을 안내합니다.</div>
+        </div>
+        <div class="py-4 space-y-2">
+          <div class="font-semibold text-slate-900">10. 개인정보 보관 및 파기 기준</div>
+          <div class="text-xs text-gray-500 leading-relaxed">개인정보 보관 기간과 파기 절차, 예외 사유를 안내합니다.</div>
+        </div>
+        <div class="py-4 space-y-2">
+          <div class="font-semibold text-slate-900">11. 계좌 해지 및 제한 안내</div>
+          <div class="text-xs text-gray-500 leading-relaxed">해지 절차 및 부정거래 방지에 따른 제한 사항을 안내합니다.</div>
+        </div>
+        <div class="py-4 space-y-2">
+          <div class="font-semibold text-slate-900">12. 휴면계좌 관리 기준</div>
+          <div class="text-xs text-gray-500 leading-relaxed">휴면 전환 요건과 해제 절차를 안내합니다.</div>
+        </div>
+        <div class="py-4 space-y-2">
+          <div class="font-semibold text-slate-900">13. 전자서명 이용 동의</div>
+          <div class="text-xs text-gray-500 leading-relaxed">전자서명 제공 및 효력에 대한 내용을 안내합니다.</div>
+        </div>
+        <div class="py-4 space-y-2">
+          <div class="font-semibold text-slate-900">14. 광고성 정보 수신 동의</div>
+          <div class="text-xs text-gray-500 leading-relaxed">마케팅성 정보 수신 방식과 수신 거부 방법을 안내합니다.</div>
+        </div>
+        <div class="py-4 space-y-2">
+          <div class="font-semibold text-slate-900">15. 거래내역 통지 방법</div>
+          <div class="text-xs text-gray-500 leading-relaxed">SMS/이메일 등 통지 수단과 변경 절차를 안내합니다.</div>
+        </div>
+        <div class="py-4 space-y-2">
+          <div class="font-semibold text-slate-900">16. 해외거래 관련 유의사항</div>
+          <div class="text-xs text-gray-500 leading-relaxed">해외시장 리스크 및 관련 법규 적용 사항을 안내합니다.</div>
+        </div>
+        <div class="py-4 space-y-2">
+          <div class="font-semibold text-slate-900">17. 환율 및 환전 안내</div>
+          <div class="text-xs text-gray-500 leading-relaxed">환율 적용 기준과 환전 수수료 산정 방법을 안내합니다.</div>
+        </div>
+        <div class="py-4 space-y-2">
+          <div class="font-semibold text-slate-900">18. 본인확인 및 인증 절차</div>
+          <div class="text-xs text-gray-500 leading-relaxed">인증 수단 및 실패 시 조치 사항을 안내합니다.</div>
+        </div>
+        <div class="py-4 space-y-2">
+          <div class="font-semibold text-slate-900">19. 위험 고지 및 투자 유의</div>
+          <div class="text-xs text-gray-500 leading-relaxed">투자 손실 가능성과 유의사항을 안내합니다.</div>
+        </div>
+        <div class="py-4 space-y-2">
+          <div class="font-semibold text-slate-900">20. 기타 약관</div>
+          <div class="text-xs text-gray-500 leading-relaxed">서비스 운영에 필요한 기타 사항을 안내합니다.</div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="fixed bottom-0 left-0 right-0 bg-white p-4 sticky-bottom-nav z-50">
+    <button class="w-full h-14 text-white text-lg font-bold rounded-xl shadow-lg btn-transition bg-brand" id="next-button">아래로 내리기</a>
+  </footer>
+
+  <!-- Bottom Sheet: 선택 약관 -->
+  <div class="sheet-overlay fixed inset-0 z-50 bg-black/40" id="optional-sheet">
+    <div class="bottom-sheet-panel absolute inset-x-0 bottom-0 bg-white rounded-t-3xl p-5">
+      <div class="w-10 h-1.5 rounded-full bg-gray-300 mx-auto mb-4"></div>
+      <div class="mt-2 space-y-3">
+        <label class="p-3 rounded-xl border border-gray-200 bg-white flex items-start gap-3 cursor-pointer">
+          <input type="checkbox" class="mt-1 h-5 w-5 border-gray-300 text-brand focus:ring-brand bg-transparent" />
+          <div class="flex-1">
+            <div class="font-semibold text-slate-900">[선택] 마케팅 정보 수신</div>
+            <div class="text-xs text-gray-500 mt-1">이벤트/혜택 안내 수신</div>
+          </div>
+        </label>
+        <label class="p-3 rounded-xl border border-gray-200 bg-white flex items-start gap-3 cursor-pointer">
+          <input type="checkbox" class="mt-1 h-5 w-5 border-gray-300 text-brand focus:ring-brand bg-transparent" />
+          <div class="flex-1">
+            <div class="font-semibold text-slate-900">[선택] 맞춤형 상품 안내</div>
+            <div class="text-xs text-gray-500 mt-1">투자 성향 기반 추천</div>
+          </div>
+        </label>
+      </div>
+
+      <div class="mt-5 grid gap-2">
+        <button class="w-full h-12 rounded-xl bg-brand text-white font-semibold" id="sheet-next">다음</a>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    const nextButton = document.getElementById('next-button');
+    const sheet = document.getElementById('optional-sheet');
+    function isAtBottom() {
+      const scrollPos = window.scrollY + window.innerHeight;
+      const maxScroll = document.documentElement.scrollHeight;
+      return scrollPos >= maxScroll - 2;
+    }
+
+    function updateButtonText() {
+      nextButton.textContent = isAtBottom() ? '동의' : '아래로 내리기';
+    }
+
+    function scrollDown() {
+      const jump = Math.max(window.innerHeight * 0.8, 240);
+      window.scrollBy({ top: jump, behavior: 'smooth' });
+    }
+
+    window.addEventListener('scroll', updateButtonText);
+    updateButtonText();
+
+    nextButton.addEventListener('click', () => {
+      if (isAtBottom()) {
+        sheet.classList.add('active');
+      } else {
+        scrollDown();
+      }
+    });
+
+    sheet.addEventListener('click', (e) => {
+      if (e.target === sheet) sheet.classList.remove('active');
+    });
+  </script>
+</body>
+</html>

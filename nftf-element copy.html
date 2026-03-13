@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Premium Finance UI Guide</title>
+    <script src="https://unpkg.com/feather-icons"></script>
+    <style>
+        :root {
+            /* 메인 컬러 강조 */
+            --db-green: #019d5c; 
+            --bg-green: #e0f7ed; 
+            --db-light-green: #8ec63f;
+            --db-orange: #e86a05; --db-blue: #118fd1; --db-red: #d43434;
+            --white: #fff; --black: #111; --black333: #333; --black999: #999;
+            --border-gray: #e0e0e0; --neutral-10: #f0f0f0; --neutral-50: #dbdbdb;
+            --bg-gray-f8: #f8f8f8;
+        }
+
+        /* Reset & Base */
+        * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; margin: 0; padding: 0; }
+        body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; background-color: #fff; color: var(--black333); padding: 20px; line-height: 1.5; }
+        
+        .section-label { font-size: 12px; font-weight: 700; color: var(--black999); margin-bottom: 24px; text-transform: uppercase; letter-spacing: 0.5px; border-bottom: 1px solid var(--neutral-10); padding-bottom: 8px; }
+
+        /* --- [1안: Toss Style (Seamless & Focus)] --- */
+        .toss-container { margin-bottom: 60px; padding: 0 4px; }
+        .toss-container .tab-menu { display: flex; gap: 24px; margin-bottom: 32px; }
+        .toss-container .tab-item { font-size: 16px; font-weight: 600; color: var(--neutral-100); cursor: pointer; position: relative; padding-bottom: 8px; }
+        .toss-container .tab-item.active { color: var(--db-green); }
+        .toss-container .tab-item.active::after { content: ''; position: absolute; bottom: 0; left: 0; width: 100%; height: 2px; background: var(--db-green); }
+
+        .toss-container .input-wrapper { margin-bottom: 32px; }
+        .toss-container .label { font-size: 14px; font-weight: 600; color: var(--black333); margin-bottom: 8px; display: block; }
+        .toss-container input { width: 100%; border: none; border-bottom: 2px solid var(--neutral-10); padding: 8px 0 12px; font-size: 20px; font-weight: 500; color: var(--black); transition: border-color 0.2s; }
+        .toss-container input:focus { outline: none; border-bottom-color: var(--db-green); }
+        .toss-container input::placeholder { color: var(--neutral-100); }
+
+        .toss-container .radio-group { display: flex; gap: 10px; margin-bottom: 32px; }
+        .toss-container .radio-box { flex: 1; }
+        .toss-container .radio-box input { display: none; }
+        .toss-container .radio-box span { display: block; text-align: center; padding: 16px; background: var(--bg-gray-f8); border-radius: 12px; font-size: 15px; font-weight: 600; color: var(--neutral-300); cursor: pointer; }
+        .toss-container .radio-box input:checked + span { background: var(--bg-green); color: var(--db-green); }
+
+        .toss-container .check-wrapper { display: flex; align-items: center; gap: 12px; margin-bottom: 32px; }
+        .toss-container .custom-check { width: 24px; height: 24px; border-radius: 50%; background: var(--neutral-10); display: flex; align-items: center; justify-content: center; color: var(--white); transition: 0.2s; }
+        .toss-container input:checked + .custom-check { background: var(--db-green); }
+
+        .toss-container .btn-main { width: 100%; height: 56px; background: var(--db-green); color: var(--white); border: none; border-radius: 16px; font-size: 16px; font-weight: 700; cursor: pointer; }
+        .toss-container .a-query { display: block; text-align: center; margin-top: 16px; font-size: 14px; color: var(--neutral-300); text-decoration: none; }
+
+        /* --- [2안: Shinhan Style (Structured Card)] --- */
+        .shinhan-container { background: var(--bg-gray-f8); margin: 0 -20px; padding: 32px 20px; }
+        .shinhan-container .tab-menu { display: flex; background: var(--neutral-10); border-radius: 10px; padding: 4px; margin-bottom: 24px; }
+        .shinhan-container .tab-item { flex: 1; text-align: center; padding: 10px; font-size: 14px; font-weight: 600; color: var(--neutral-300); border-radius: 8px; }
+        .shinhan-container .tab-item.active { background: var(--white); color: var(--db-green); box-shadow: 0 2px 4px rgba(0,0,0,0.05); }
+
+        .shinhan-container .card { background: var(--white); border-radius: 16px; padding: 24px; border: 1px solid var(--border-gray); margin-bottom: 16px; }
+        .shinhan-container .label { font-size: 13px; font-weight: 700; color: var(--black333); margin-bottom: 10px; display: block; }
+        .shinhan-container input { width: 100%; height: 48px; border: 1px solid var(--border-gray); border-radius: 8px; padding: 0 16px; font-size: 15px; background: var(--white); }
+        .shinhan-container input:focus { outline: none; border-color: var(--db-green); }
+
+        .shinhan-container .radio-list { display: flex; flex-direction: column; gap: 10px; }
+        .shinhan-container .radio-item input { display: none; }
+        .shinhan-container .radio-item span { display: flex; justify-content: space-between; align-items: center; padding: 16px; border: 1px solid var(--border-gray); border-radius: 12px; font-size: 15px; font-weight: 600; color: var(--black333); }
+        .shinhan-container .radio-item input:checked + span { border-color: var(--db-green); color: var(--db-green); background: var(--bg-green); }
+        .shinhan-container .radio-item input:checked + span::after { content: '✓'; font-weight: 700; }
+
+        .shinhan-container .check-group { display: flex; align-items: center; gap: 10px; margin: 8px 0 24px; }
+        .shinhan-container .custom-check { width: 22px; height: 22px; border: 2px solid var(--neutral-50); border-radius: 6px; display: flex; align-items: center; justify-content: center; color: transparent; transition: 0.2s; }
+        .shinhan-container input:checked + .custom-check { background: var(--db-green); border-color: var(--db-green); color: var(--white); }
+
+        .shinhan-container .btn-flex { display: flex; gap: 10px; }
+        .shinhan-container .btn-flex button { height: 52px; border-radius: 10px; font-size: 15px; font-weight: 700; border: none; cursor: pointer; }
+        .shinhan-container .btn-prev { flex: 1; background: var(--white); border: 1px solid var(--neutral-50) !important; color: var(--neutral-300); }
+        .shinhan-container .btn-next { flex: 2; background: var(--db-green); color: var(--white); }
+        
+        .shinhan-container .a-query { display: block; text-align: center; margin-top: 20px; font-size: 14px; color: var(--neutral-300); text-decoration: underline; }
+
+        /* Color Preview */
+        .color-chips { display: flex; gap: 8px; margin-bottom: 30px; }
+        .chip { width: 40px; height: 20px; border-radius: 4px; border: 1px solid #eee; }
+    </style>
+</head>
+<body>
+
+    <div class="color-chips">
+        <div class="chip" style="background:var(--db-green)"></div>
+        <div class="chip" style="background:var(--db-light-green)"></div>
+        <div class="chip" style="background:var(--bg-green)"></div>
+    </div>
+
+    <p class="section-label">Option 1. Toss Style (Focus)</p>
+    <div class="toss-container">
+        <div class="tab-menu">
+            <div class="tab-item active">요약동의서</div>
+            <div class="tab-item">상세동의서</div>
+        </div>
+
+        <div class="input-wrapper">
+            <label class="label">이름</label>
+            <input type="text" placeholder="성함을 입력하세요">
+        </div>
+
+        <div class="input-wrapper">
+            <label class="label">주민등록번호</label>
+            <input type="password" placeholder="숫자만 입력">
+        </div>
+
+        <div class="radio-group">
+            <label class="radio-box"><input type="radio" name="t_radio" checked><span>선택 1</span></label>
+            <label class="radio-box"><input type="radio" name="t_radio"><span>선택 2</span></label>
+        </div>
+
+        <label class="check-wrapper">
+            <input type="checkbox" style="display:none" checked>
+            <div class="custom-check"><i data-feather="check" style="width:16px; height:16px;"></i></div>
+            <span style="font-size:15px; font-weight:600;">동의합니다</span>
+        </label>
+
+        <button class="btn-main">다음</button>
+        <a href="#" class="a-query">문의사항이 있으신가요?</a>
+    </div>
+
+    
+    <script>
+        feather.replace();
+    </script>
+</body>
+</html>
