@@ -128,7 +128,6 @@
         </svg>
       </span>
       <span id="toast-message">신분증/운전면허증 진위 확인이 완료되었습니다.</span>
-      <button class="text-gray-400 hover:text-gray-600" id="toast-close" type="button">x</button>
     </div>
   </div>
 
@@ -147,11 +146,33 @@
     </div>
   </div>
 
+  <!-- 인증 바텀시트 -->
+  <div class="sheet-overlay fixed inset-0 z-50 bg-black/40" id="auth-sheet">
+    <div class="bottom-sheet-panel absolute inset-x-0 bottom-0 bg-white rounded-t-3xl p-5">
+      <div class="w-10 h-1.5 rounded-full bg-gray-300 mx-auto mb-4"></div>
+      <h3 class="text-lg font-semibold text-slate-900">진위확인 실패</h3>
+      <div class="mt-3 h-px bg-gray-200"></div>
+      <p class="text-sm text-gray-500 mt-3">빛이 반사되지 않는 곳에서 다시 촬영해 주세요.</p>
+      <div class="mt-5 grid gap-2">
+        <button class="w-full h-12 rounded-xl bg-orange-500 text-white font-semibold" id="auth-retry">신분증/운전면허 인증</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Screen3 Layer Popup -->
+  <div class="sheet-overlay fixed inset-0 z-[60] bg-black/40" id="screen3-layer">
+    <div class="absolute inset-0 bg-white">
+      <iframe src="../screen3/code.html?popup=1" class="w-full h-full border-0"></iframe>
+    </div>
+  </div>
+
   <script>
     const sheet = document.getElementById('select-sheet');
     const sheetTitle = document.getElementById('sheet-title');
     let activeTarget = null;
     const verifyToast = document.getElementById('verify-toast');
+    const authSheet = document.getElementById('auth-sheet');
+    const authRetry = document.getElementById('auth-retry');
     const toastClose = document.getElementById('toast-close');
 
     document.querySelectorAll('[data-open-sheet]').forEach((btn) => {
@@ -200,6 +221,7 @@
       verifyToast.classList.add('show');
       setTimeout(() => {
         verifyToast.classList.remove('show');
+        if (!isSuccess) authSheet.classList.add('active');
       }, 3000);
     }
 
@@ -209,6 +231,26 @@
 
     document.getElementById('toast-fail').addEventListener('click', () => {
       showToast('신분증/운전면허증 진위 확인을 다시해주세요.', false);
+    });
+
+    authSheet.addEventListener('click', (e) => {
+      if (e.target === authSheet) authSheet.classList.remove('active');
+    });
+
+    const screen3Layer = document.getElementById('screen3-layer');
+    window.addEventListener('message', (event) => {
+      if (event.data && event.data.type === 'close-screen3-popup') {
+        screen3Layer.classList.remove('active');
+      }
+    });
+
+    authRetry.addEventListener('click', () => {
+      authSheet.classList.remove('active');
+      screen3Layer.classList.add('active');
+    });
+
+    screen3Layer.addEventListener('click', (e) => {
+      if (e.target === screen3Layer) screen3Layer.classList.remove('active');
     });
 
     toastClose.addEventListener('click', () => {

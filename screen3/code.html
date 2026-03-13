@@ -37,13 +37,13 @@
   <!-- Header -->
   <header class="bg-white border-b border-gray-200 sticky top-0 z-50">
     <div class="px-4 h-14 flex items-center justify-between">
-      <a aria-label="Go back" class="p-2 -ml-2 text-gray-600" href="../nftf-element.html">
+      <a aria-label="Go back" class="p-2 -ml-2 text-gray-600" href="../nftf-element.html" id="back-btn">
         <svg class="h-6 w-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
           <path d="M15 19l-7-7 7-7" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path>
         </svg>
       </a>
       <h1 class="text-lg font-semibold text-slate-800">계좌 개설</h1>
-      <button aria-label="Close" class="p-2 -mr-2 text-gray-600">
+      <button aria-label="Close" class="p-2 -mr-2 text-gray-600" id="close-btn">
         <svg class="h-6 w-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
           <path d="M6 18L18 6M6 6l12 12" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path>
         </svg>
@@ -162,6 +162,18 @@
         sheet.classList.remove('active');
       }
     });
+
+    const backBtn = document.getElementById('back-btn');
+    const closeBtn = document.getElementById('close-btn');
+    const params = new URLSearchParams(window.location.search);
+    if (params.get('popup') === '1' && backBtn) {
+      backBtn.style.display = 'none';
+      if (closeBtn) {
+        closeBtn.addEventListener('click', () => {
+          window.parent.postMessage({ type: 'close-screen3-popup' }, '*');
+        });
+      }
+    }
   </script>
 </body>
 </html>

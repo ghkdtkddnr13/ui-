@@ -30,6 +30,8 @@
     .sheet-overlay.active { opacity: 1; pointer-events: auto; }
     .bottom-sheet-panel { transform: translateY(100%); transition: transform 0.25s ease; will-change: transform; }
     .sheet-overlay.active .bottom-sheet-panel { transform: translateY(0); }
+    .modal-panel { transform: translateY(100%); transition: transform 0.25s ease; will-change: transform; }
+    .modal-overlay.active .modal-panel { transform: translateY(0); }
   </style>
 </head>
 <body class="text-gray-900 flex flex-col min-h-screen bg-white">
@@ -110,30 +112,23 @@
       <h3 class="text-lg font-semibold text-slate-900">시작 전에 확인해주세요</h3>
       <div class="mt-4 h-px bg-gray-200"></div>
 
-      <div class="mt-4 space-y-3 text-sm text-gray-700 rounded-2xl bg-gray-50 p-4">
-        <label class="flex items-start gap-2">
-          <input type="checkbox" class="mt-1 h-5 w-5 border-gray-300 text-brand focus:ring-brand bg-transparent" checked />
-          <span class="mt-0.5">만 19세 이상이며, 본인 명의로 신청합니다.</span>
-        </label>
-        <label class="flex items-start gap-2">
-          <input type="checkbox" class="mt-1 h-5 w-5 border-gray-300 text-brand focus:ring-brand bg-transparent" checked />
-          <span class="mt-0.5">금융사기 피해 예방을 위한 안내에 동의합니다.</span>
-        </label>
+      <div class="mt-4 space-y-2 text-sm text-gray-700 rounded-2xl bg-gray-50 p-4">
+        <div>만 19세 이상이며, 본인 명의로 신청합니다.</div>
+        <div>금융사기 피해 예방을 위한 안내를 확인했습니다.</div>
       </div>
       <div class="mt-2 text-right">
         <button class="text-xs font-semibold text-gray-500" id="open-detail">자세히 보기 &gt;</a>
       </div>
 
       <div class="mt-5 grid gap-2">
-        <button class="w-full h-12 rounded-xl border border-gray-200 text-gray-600 font-semibold" id="close-sheet">닫기</a>
-        <button class="w-full h-12 rounded-xl bg-brand text-white font-semibold">확인하고 시작</a>
+        <button class="w-full h-12 rounded-xl bg-brand text-white font-semibold" id="confirm-start">확인</a>
       </div>
     </div>
   </div>
 
   <!-- Full Layer Popup -->
   <div class="hidden fixed inset-0 z-[60] bg-black/50" id="detail-modal">
-    <div class="absolute inset-0 bg-white flex flex-col">
+    <div class="absolute inset-0 bg-white flex flex-col modal-panel">
       <div class="h-14 px-4 flex items-center justify-between border-b border-gray-200">
         <h3 class="text-base font-semibold text-slate-900">자세히 보기</h3>
         <button class="p-2 -mr-2 text-gray-600" id="close-detail" aria-label="닫기">
@@ -152,19 +147,16 @@
 
   <script>
     const openSheet = document.getElementById('open-sheet');
-    const closeSheet = document.getElementById('close-sheet');
     const sheet = document.getElementById('bottom-sheet');
     const openDetail = document.getElementById('open-detail');
     const closeDetail = document.getElementById('close-detail');
     const detailModal = document.getElementById('detail-modal');
+    const confirmStart = document.getElementById('confirm-start');
 
     openSheet.addEventListener('click', () => {
       sheet.classList.add('active');
     });
 
-    closeSheet.addEventListener('click', () => {
-      sheet.classList.remove('active');
-    });
 
     sheet.addEventListener('click', (e) => {
       if (e.target === sheet) {
@@ -174,16 +166,24 @@
 
     openDetail.addEventListener('click', () => {
       detailModal.classList.remove('hidden');
+      detailModal.classList.add('modal-overlay');
+      requestAnimationFrame(() => detailModal.classList.add('active'));
     });
 
     closeDetail.addEventListener('click', () => {
-      detailModal.classList.add('hidden');
+      detailModal.classList.remove('active');
+      setTimeout(() => detailModal.classList.add('hidden'), 200);
     });
 
     detailModal.addEventListener('click', (e) => {
       if (e.target === detailModal) {
-        detailModal.classList.add('hidden');
+        detailModal.classList.remove('active');
+        setTimeout(() => detailModal.classList.add('hidden'), 200);
       }
+    });
+
+    confirmStart.addEventListener('click', () => {
+      sheet.classList.remove('active');
     });
   </script>
 </body>
